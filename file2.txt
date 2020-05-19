@@ -1,1 +1,36 @@
  
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Scanner;
+
+import static com.example.vkparsername.utils.networkUtils.generateUrl;
+import static com.example.vkparsername.utils.networkUtils.getResFromURL;
+
+public class MainActivity extends AppCompatActivity {
+private TextView info;
+private EditText id;
+private Button bam;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bam = findViewById(R.id.button);
+        info = findViewById(R.id.textView);
+        id = findViewById(R.id.editText);
+        View.OnClickListener button1 = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                URL gneratedURL = generateUrl(id.getText().toString());
+                String respanse = null;
+                try {
+                    respanse = getResFromURL(gneratedURL);
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+           info.setText(respanse);
+            }
+        };
+        bam.setOnClickListener(button1);
+    }
+}
